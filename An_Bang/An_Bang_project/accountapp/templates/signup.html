@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>안암동 방리뷰 "안방" 서비스에 오신 것을 환영합니다.</h1>
+
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            ID:
+            <br>
+            <input type="text" name="username" placeholder="대,소문자,숫자 혼용">
+            <br>
+            비밀번호:
+            <br>
+            <input type="password" name="password1">
+            <br>
+            비밀번호 확인:
+            <br>
+            <input type="password" name="password2">
+            <br>
+            이름:
+            <br>
+            <input type="text" name="name">
+            <br>
+            성별:
+            <br>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">남성</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">여성</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">그 외</label>
+            <br>
+            태어난 년도:
+            <br>
+            <input type="number" name="birth_year" min="1920" max="2020">
+            <br>
+            태어난 달:
+            <br>
+            <input type="number" name="birth_month" min="1" max="12">
+            <br>
+            태어난 날짜:
+            <br>
+            <input type="number" name="birth_date" min="1" max="31">
+            <br>
+            전화번호:
+            <br>
+            <input type="tel" id="phone" name="phone" placeholder="01012345678" pattern="[0-9]{3}[0-9]{4}[0-9]{4}" required>
+            <br>
+            E-mail:
+            <br>
+            <input type="email" name="email">
+            <br><br>
+            <input type="submit" value="sign up">
+        </form>
+    </div>
+</body>
+</html>
