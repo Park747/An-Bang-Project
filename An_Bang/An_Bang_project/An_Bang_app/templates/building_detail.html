@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div>
+            <h2>건물명</h2>
+            <p>{{ building.name }}</p>
+        </div>
+        <div>
+            <h2>주소지</h2>
+            <p>{{ building.address }}</p>
+        </div>
+        <div>
+            <h2>cctv여부</h2>
+            <p>{{ building.cctv }}</p>
+        </div>
+        <div>
+            <h2>현관여부</h2>
+            <p>{{ building.entrance }}</p>
+        </div>
+        <div>
+            <h2>비밀번호여부</h2>
+            <p>{{ building.guard }}</p>
+        </div>
+        <div>
+            <h2>엘리베이터여부</h2>
+            <p>{{ building.elevator }}</p>
+        </div>
+        <div>
+            <h2>리뷰 리스트</h2>
+            <ul>
+                {%  for	review in reviews %}
+                    <a class="review_list" href = "{% url 'review_detail' review.building_id %}"><li>{{ review.user_id }}<br>{{ review.memo }}</li></a>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <a href="{%	url 'index' %}">홈으로</a>
+        </div>
+    </main>
+</body>
+</html>

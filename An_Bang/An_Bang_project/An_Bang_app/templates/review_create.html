@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="content">자세한 후기</label>
+                <textarea name="memo" id="memo" cols="30" rows="10" placeholder="Put your text here."></textarea>
+            </div>
+            <div>
+                <label for="deadline">별점</label>
+                <input type="number" name="like" id="like"></input>
+            </div>
+                <button type="submit">후기 등록하기</button>
+        </form>
+    </main>
+</body>
+</html>

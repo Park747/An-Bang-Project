@@ -14,20 +14,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from accountapp import views
+from django.urls import path, include
+from An_Bang_app import views
+from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index, name='index' ),
-    path('signup/', views.signup, name='signup'),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout, name='logout'),
-    # path('home', views.home, name='home'),
-    # path('keyword_input', views.keyword_input, name='keyword_input'),
-    # path('building_list', views.building_list, name='building_list'),
-    # path('review_list', views.review_list, name='review_list'),
-    # path('building_detail<int:building_id>', views.building_detail, name='building_detail'),
-    # path('review_detail/<int:review_id>', views.review_detail, name='review_detail'),
-    # path('review_create', views.review_create, name='review_create'),
-]
+    path('admin/', admin.site.urls), #관리자 페이지
+    path('', include('accountapp.urls')),
+    path('google/', include('allauth.urls')),
+    # path('building_create', views.building_create, name="building_create"), # 건물 추가 페이지
+    # path('building_list', views.building_list, name='building_list'), #건물 목록 페이지
+    # path('review_list/<str:building_address>', views.review_list, name='review_list'), #빌딩 디테일페이지에서 해당 빌딩의 리뷰 목록으로 이동 
+    # path('building_detail/<str:building_address>', views.building_detail, name='building_detail'), #해당 빌딩의 디테일 페이지
+    # path('review_detail/<int:review_id>', views.review_detail, name='review_detail'), #리뷰 작성, 리뷰 클릭시 리뷰디테일로 이동
+    # path('review_create/<int:building_address>/<str:username>', views.review_create, name='review_create'), #건물 detail에서 리뷰 작성 버튼 클릭시 
+# path('keyword_input', views.keyword_input, name='keyword_input'),
+    ]
