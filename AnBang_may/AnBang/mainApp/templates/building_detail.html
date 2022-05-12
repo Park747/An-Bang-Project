@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% load static %}
+  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
+    <link rel="stylesheet" type="text/css" href="{% static 'stars.css' %}" />
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="buttons">
+          <div name="goback">
+            <a href="#" onClick="history.back();">뒤로 가기</a>
+          </div>
+
+          {% comment %} <div name="jjim">
+            {% if 유저가 로그인되어있다면 %}
+              #책갈피 아이콘 내부가 채워짐
+              #사용자의 찜한 목록에 추가됨
+            {% else %}
+              <a href = "{% url 'search' %}"></a>
+            {% endif %}
+          </div>
+        </div> {% endcomment %}
+
+        <div class="info">
+          <h1>상세 정보</h1>
+          <div class="info_detail">
+
+            <div>
+              <h2>건물 이미지</h2>
+            </div>
+            <div>
+                <h2>건물명</h2>
+                <p>{{ building.name }}</p>
+            </div>
+            <div>
+                <h2>주소지</h2>
+                <p>{{ building.address }}</p>
+            </div>
+            <div>
+                <h2>리뷰개수</h2>  
+                <p>{{ reviews_length }}</p>
+            </div>
+            
+          </div>
+        </div>
+
+
+
+        <div class="options">
+          {% if building.cctv %}
+            <h3>cctv 있어요</h3>
+          {% endif %}
+          {% if building.entrance %}
+            <h3>공동 현관 있어요</h3>
+          {% endif %}
+          {% if building.guard %}
+            <h3>경비원 있어요</h3>
+          {% endif %}
+          {% if building.women %}
+            <h3>여성전용건물이에요</h3>
+          {% endif %}
+          {% if building.elevator%}
+            <h3>엘리베이터 있어요</h3>
+          {% endif %}
+        </div>
+
+
+        
+        <div class="reviews">
+          <h2>평점 요약</h2>
+
+          <div>
+              <h3>살기 좋아요(총점) 평균</h3>
+                <p>{{ average_rate }}</p>
+                
+                <div class='RatingStar'> <div class='RatingScore'> <div class='outer-star'> <div class='inner-star'>
+                </div> </div> </div> </div>
+                <script>
+                  ratings = {RatingScore: {{average_rate}}} 
+                  totalRating = 5;
+                  table = document.querySelector('.RatingStar');
+                  function rateIt() {
+                    for (rating in ratings) {
+                      ratingPercentage = ratings[rating] / totalRating * 100;
+                      ratingRounded = Math.round(ratingPercentage / 10) * 10 + '%';
+                      star = table.querySelector(`.${rating} .inner-star`);
+                      numberRating = table.querySelector(`.${rating} .numberRating`);
+                      
+                      star.style.width = ratingRounded;
+                      numberRating.innerText = ratings[rating];
+                    }
+                  }
+                  rateIt()
+                </script>
+          </div>
+
+          {% comment %}           
+          <div>
+              <h3>총점 분포</h3>  막대 그래프
+          </div> 
+          {% endcomment %}
+
+          <div> {% comment %} 항목 별 평점 평균을 숫자와 별 5개로 나타낸다  {% endcomment %}
+              <ul>
+                  <li>
+                    <h3>집주인 좋아요 </h3>
+                    <p>{{ average_host }}</p>
+                    <div class = "stars">
+                      <div class='RatingStar'> <div class='RatingScore'> <div class='outer-star'> <div class='inner-star'>
+                      </div> </div> </div> </div>
+                  </div>
+                  </li>
+
+                  <li>
+                    <h3>방음 좋아요 </h3>
+                    <p>{{ average_soundproof }}</p>
+                    <div class = "stars">
+                        <div class='RatingStar'> <div class='RatingScore'> <div class='outer-star'> <div class='inner-star'>
+                        </div> </div> </div> </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <h3>수압 좋아요 </h3>
+                    <p>{{ average_water_pressure }}</p>
+                    <div class = "stars">
+                        <div class='RatingStar'> <div class='RatingScore'> <div class='outer-star'> <div class='inner-star'>
+                        </div> </div> </div> </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <h3>새집 같아요 </h3>
+                    <p>{{ average_new }}</p>
+                    <div class = "stars">
+                        <div class='RatingStar'> <div class='RatingScore'> <div class='outer-star'> <div class='inner-star'>
+                        </div> </div> </div> </div>
+                    </div>
+                  </li>
+              </ul>
+          </div>
+
+        </div>
+
+
+        <div>
+            <h2>최근 후기</h2>
+            <ul>
+                  {% for review in recent_reviews %}
+                      <a href = "{% url 'review_detail' review.pk %}">
+                        <li>{{ review.user_id }}</li>
+                        <li>{{ review.memo }}</li>
+                      </a>
+                  {% endfor %}
+            </ul>
+            <div class="buttons">
+              <a href="{% url 'review_list' building.pk %}">후기 더보기</a>
+              <a href="{% url 'review_create' building.pk %}">후기 쓰기</a> 
+            </div>
+        </div>
+
+        <div class="buttons">
+          <a href="{% url 'home' %}">홈으로</a>
+        </div>
+    </main>
+
+
+    {% comment %} <script type="text/javascript" src="{% static 'stars.js' %}">
+      rateIt()
+    </script> {% endcomment %}
+
+
+</body>
+</html>

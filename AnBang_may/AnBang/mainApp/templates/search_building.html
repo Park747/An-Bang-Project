@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="buttons">
+      <a href="#" onClick="history.back();">뒤로 가기</a>
+    </div>
+    <div>
+        <ul>
+            {% for building in buildings %}
+            <li>
+                <a href="{% url 'building_detail' building.id %}">
+                  <p>{{building.name}}</p>
+                </a>
+                <p>{{building.address}}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

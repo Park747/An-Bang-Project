@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>AnBang</title>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=60ojfqh578"></script>
+</head>
+<body>
+    <h1>지도 페이지</h1>
+    <header>
+        {% load socialaccount %}
+        {% if user.is_authenticated %}
+        <p>안녕하세요 {{user}} 님!</p>
+        <a href="{% url 'logout' %}">로그아웃</a>
+        {% else %}
+        <a href="{% provider_login_url 'google' %}">구글 로그인</a>
+        {% endif %}
+    </header>
+    <div>
+        <a href="{% url 'search' %}">건물 검색</a>
+    </div>
+    <div id="map" style="width:100%;height:100vh;"></div>
+    <script>
+
+        var map = new naver.maps.Map('map', {
+            center: new naver.maps.LatLng(37.5864913, 127.0288802),
+            zoom: 15
+        });
+
+        // building data를 나타내는 마커와 팝업 생성
+        var buildings = JSON.parse("{{ buildings | escapejs }}")
+
+        var markers = [],
+            infoWindows = [];
+
+        for (var i = 0; i < buildings.length; i++){
+            var marker = new naver.maps.Marker({
+                position: new naver.maps.LatLng(buildings[i]['latitude'], buildings[i]['longitude']),
+                map: map
+            });
+
+            var infoWindow = new naver.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:10px;">"'+ buildings[i]['name'] +'"</div>'
+            });
+
+            markers.push(marker);
+            infoWindows.push(infoWindow);
+        }
+
+
+        // 마커를 클릭했을 때 팝업을 띄우는 함수 적용
+        // seq: markers의 index i를 전달하는 파라미터
+        function getClickHandler(seq) {
+            return function(e) {
+                var marker = markers[seq],
+                    infoWindow = infoWindows[seq];
+
+                if (infoWindow.getMap()) { //이미 팝업이 띄워져 있을 경우
+                    infoWindow.close();
+                } else {
+                    infoWindow.open(map, marker);
+                }
+            }
+        }
+
+        for (var i=0, ii=markers.length; i<ii; i++) {
+            //console.log(markers[i], getClickHandler(i));
+            naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
+        }
+
+
+    </script>
+</body>
+</html>

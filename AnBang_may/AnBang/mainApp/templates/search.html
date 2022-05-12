@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head> 
+<script>
+    $(function(){
+        const building_list = [
+'한솥도시락 고대원룸촌점',
+'큰소나무원룸',
+'투유게스트하우스 원룸텔',
+'성연원룸',
+'한이원룸',
+'해피원룸',
+'세원원룸',
+'고성원룸',
+'미덕원룸',
+'해피원룸텔',
+'경희원룸',
+'미니하우스 원룸',
+'봄빛속 원룸',
+'소나무원룸',
+'세븐일레븐 성북고대원룸점',
+'동이원룸',
+'봄빛원룸',
+'하버드원룸',
+'하이원룸',
+'원룸하우스',
+'라임하우스',
+'고집 프리미엄고시텔',
+'안암하우스',
+'마당발공인중개사사무소',
+'굿스테이',
+'리슈빌동행공인중개사사무소',
+'인디하우스',
+'아성공인중개사사무소',
+'스테이즈부동산중개법인 고려대점',
+'재테크공인중개사',
+'고대부동산공인중개사사무소',
+'하나공인중개사사무소',
+'파인트리 원룸',
+'명성원룸',
+'두리원룸',
+'ZAMee',
+'뉴소나무원룸',
+'스타트원룸텔',
+'애플원룸텔',
+'더스테이 원룸텔',
+'미래원룸',
+'동성원룸',
+]
+        $("#searchInput").autocomplete({
+            source: building_list,
+            focus: function(event,ui){
+                return false;
+            },
+            minLength: 1,
+            delay: 100,
+        });
+    });
+</script>
+<body>
+    <h1>검색 페이지</h1>
+    <form method="get" action="{% url 'result' %}">
+        {%csrf_token%}
+        <input id="searchInput" name="q" type="search" placeholder="건물명 또는 주소를 입력하세요." >
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

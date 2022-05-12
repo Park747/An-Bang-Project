@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'review_create.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <!-- return 때문에 파일과 폴더 이름들이 빨간데 실행은 잘되고, 없애면 오히려 '취소'를 눌러도 home으로 가버림 ㅠ -->
+    <a href="{% url 'home' %}" onclick="return confirm('작성하시던 후기가 사라집니다.\n페이지를 떠나시겠습니까?');">떠날래!</a>
+    
+    <h1>후기 작성</h1> 
+    
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <h2>{{building.name}}</h2>
+        <h2>{{conn_user}}</h2>
+
+      {% comment %} template by 손수원 합친 것.
+            {% if building %}
+              <div>
+                  <div>건물명</div>
+                  <h2>{{building.name}}</h2>
+              </div>
+              <div>
+                  <div>건물주소</div>
+                  <p>{{building.address}}</p>
+              </div>
+              <div>
+                  <input type="hidden" value="{{building.pk}}" name="building_id">
+              </div>
+            {% else %}
+              <p>select building</p> 
+            {% endif %}
+      {% endcomment %}
+        
+        
+
+        <div>
+            <label for="">거주 기간을 입력해 주세요.</label>
+            <div>
+                <input type="month" name="term_start" id="term_start">
+                <p>~</p>
+                <input type="month" name="term_end" id="term_end">
+            </div>
+        </div>
+
+            <p>만족도</p>
+            
+            <div>
+                <p>1. 집주인이 얼마나 좋았나요?</p>
+                <div>
+                    <input type="radio" id="hostChoice1" name="host" value="1">
+                    <label for="hostChoice1">1점</label>
+                
+                    <input type="radio" id="hostChoice2" name="host" value="2">
+                    <label for="hostChoice2">2점</label>
+                
+                    <input type="radio" id="hostChoice3" name="host" value="3">
+                    <label for="hostChoice3">3점</label>
+
+                    <input type="radio" id="hostChoice4" name="host" value="4">
+                    <label for="hostChoice4">4점</label>
+ 
+                    <input type="radio" id="hostChoice5" name="host" value="5">
+                    <label for="hostChoice5">5점</label>
+                </div>                
+            </div>
+
+            <div>
+                <p>2. 방음은 잘 되었나요?</p>
+                <div>
+                    <input type="radio" id="soundproofChoice1" name="soundproof" value="1">
+                    <label for="soundproofChoice1">1점</label>
+            
+                    <input type="radio" id="soundproofChoice2" name="soundproof" value="2">
+                    <label for="soundproofChoice2">2점</label>
+            
+                    <input type="radio" id="soundproofChoice3" name="soundproof" value="3">
+                    <label for="soundproofChoice3">3점</label>
+
+                    <input type="radio" id="soundproofChoice4" name="soundproof" value="4">
+                    <label for="soundproofChoice4">4점</label>
+
+                    <input type="radio" id="soundproofChoice3" name="soundproof" value="5">
+                    <label for="soundproofChoice5">5점</label>
+
+                </div>            
+            </div>
+            
+            <div>
+                <p>3. 수압은 괜찮았나요?</p>
+                <div>
+                    <input type="radio" id="water_pressureChoice1" name="water_pressure" value="1">
+                    <label for="water_pressureChoice1">1점</label>
+            
+                    <input type="radio" id="water_pressureChoice2" name="water_pressure" value="2">
+                    <label for="water_pressureChoice2">2점</label>
+            
+                    <input type="radio" id="water_pressureChoice3" name="water_pressure" value="3">
+                    <label for="water_pressureChoice3">3점</label>
+
+                    <input type="radio" id="water_pressureChoice4" name="water_pressure" value="4">
+                    <label for="water_pressureChoice4">4점</label>
+                    
+                    <input type="radio" id="water_pressureChoice5" name="water_pressure" value="5">
+                    <label for="water_pressureChoice5">5점</label>
+
+                </div>
+            </div>
+
+            <div>
+                <p>4. 얼마나 새 집 같았나요?</p>
+                <div>
+                    <input type="radio" id="newChoice1" name="new" value="1">
+                    <label for="newChoice1">1점</label>
+            
+                    <input type="radio" id="newChoice2" name="new" value="2">
+                    <label for="newChoice2">2점</label>
+            
+                    <input type="radio" id="newChoice3" name="new" value="3">
+                    <label for="newChoice3">3점</label>
+
+                    <input type="radio" id="newChoice4" name="new" value="4">
+                    <label for="newChoice4">4점</label>
+                    
+                    <input type="radio" id="newChoice5" name="new" value="5">
+                    <label for="newChoice5">5점</label>
+                </div>
+            </div>
+            
+        </div>
+
+        <div>
+            <label for="memo">자세한 후기를 남겨주세요!</label>
+            <div>
+                <textarea name="memo" id="memo" cols="30" rows="10" placeholder="솔직하고 자세한 후기는 다른 학우님들께 큰 도움이 됩니다. 감사합니다 :)"></textarea>
+            </div>
+        </div>
+
+        <div>
+            <p>이 방을 주위 사람들에게 얼마나 추천하고 싶나요?</p>
+            <div>
+                <input type="radio" id="rateChoice1" name="rate" value="1">
+                <label for="rateChoice1">1점</label>
+        
+                <input type="radio" id="rateChoice2" name="rate" value="2">
+                <label for="rateChoice2">2점</label>
+        
+                <input type="radio" id="rateChoice3" name="rate" value="3">
+                <label for="rateChoice3">3점</label>
+        
+                <input type="radio" id="rateChoice4" name="rate" value="4">
+                <label for="rateChoice4">4점</label>
+        
+                <input type="radio" id="rateChoice5" name="rate" value="5">
+                <label for="rateChoice5">5점</label>
+            </div>
+        </div>
+
+        <button type="submit">작성하기</button>
+        
+        {% comment %} <a href="{% url 'home' %}">홈으로</a> {% endcomment %}
+    </form>
+
+</body>
+</html>

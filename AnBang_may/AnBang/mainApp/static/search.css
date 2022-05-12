@@ -1,0 +1,19 @@
+.hidden{
+    display: none;
+}
+
+.rel_search {
+    display:flex;
+    flex-direction:column;
+    justify-content : space-around;
+    border: 1px solid red;
+    border-radius: 12px;
+}
+.pop_rel_keywords {
+    list-style: none;
+    margin-right: 30%;
+}
+
+.pop_rel_keywords > li {	/* JS에서 동적으로 li를 생성할 때 적용될 스타일*/
+    line-height : 250%
+}

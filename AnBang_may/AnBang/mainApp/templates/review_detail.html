@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'review_detail.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="#" onClick="history.back();">뒤로 가기</a>
+
+    <h1>후기 상세보기</h1>
+    <h2>후기 제목</h2>
+    <div>
+        <h3>작성자</h3>
+        <div>{{ review.user_email }}</div>
+    </div>
+
+    <div>
+        <h3>작성 시간</h3>
+        <div>{{ review.uploaded }}</div>
+    </div>
+
+    <div>
+        <h3>건물명</h3>
+        <div>{{ review.building_id }}</div>
+    </div>
+
+    <div>
+        <h3>총점</h3>
+        <div>{{ review.rate }}</div>
+    </div>
+
+    <div>
+        <h3>집주인</h3>
+        <div>{{ review.host }}</div>
+    </div>
+
+    <div>
+        <h3>방음</h3>
+        <div>{{ review.soundproof }}</div>
+    </div>
+
+    <div>
+        <h3>수압</h3>
+        <div>{{ review.water_pressure }}</div>
+    </div>
+
+    <div>
+        <h3>새집 정도</h3>
+        <div>{{ review.new }}</div>
+    </div>
+
+    <div>
+        <h3>내용</h3>
+        <div>{{ review.memo }}</div>
+    </div>
+
+    <p>(댓글 기능 어떻게 넣지!)</p>
+    
+    <div class="buttons">
+      <a href="{% url 'home' %}">홈으로</a>
+      {% comment %} <a href="{% url 'reviews' building.pk %}">뒤로 가기(버튼)</a> {% endcomment %}
+    </div>
+</body>
+</html>

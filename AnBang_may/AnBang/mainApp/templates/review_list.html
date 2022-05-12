@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'review_list.css' %}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <a href="#" onClick="history.back();">뒤로 가기</a>
+
+
+    <h1> 후기 목록 </h1>
+    <h2> :{{building.name}}</h2>
+
+    <ul>
+        {% for review in reviews %}
+        <li>
+            <a href="{% url 'review_detail' review.pk %}">
+                ID : {{ review.user_email }}  ({{ review.uploaded}})
+                <!-- {{ review.후기작성날짜 }} -->
+                <!-- {{ review.term_start }}
+                {{ review.term_end }} -->
+                <br> 추천도 : {{ review.rate }}
+                <br> 자세한 후기 : {{ review.memo }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    
+    {% comment %} <a href="{% url 'review_create' building.pk %}">후기 쓰기</a>  {% endcomment %}
+    <a href="{% url 'home' %}">홈으로</a>
+
+
+</body>
+</html>
